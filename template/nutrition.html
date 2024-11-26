@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Recipe Nutritional Calculator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background-color: #4caf50;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-bottom: 20px;
+        }
+        main {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .admin-panel {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .admin-panel h2 {
+            color: #4caf50;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .form-group input[type="number"] {
+            width: 80px;
+        }
+        button[type="submit"] {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .food-list {
+            margin-top: 20px;
+        }
+        .food-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .food-item:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    {% if user.is_staff %}
+    <header>
+        <h1>Admin - Recipe Nutritional Calculator</h1>
+    </header>
+    <main>
+        <section class="admin-panel">
+            <h2>Manage Food Database</h2>
+            <form id="foodForm" >
+                <div class="form-group">
+                    <label for="foodName">Food Name:</label>
+                    <input type="text" id="foodName" name="foodName" required>
+                </div>
+                <div class="form-group">
+                    <label for="calories">Calories:</label>
+                    <input type="number" id="calories" name="calories" required>
+                </div>
+                <div class="form-group">
+                    <label for="proteins">Proteins (g):</label>
+                    <input type="number" id="proteins" name="proteins" required>
+                </div>
+                <div class="form-group">
+                    <label for="fats">Fats (g):</label>
+                    <input type="number" id="fats" name="fats" required>
+                </div>
+                <div class="form-group">
+                    <label for="carbohydrates">Carbohydrates (g):</label>
+                    <input type="number" id="carbohydrates" name="carbohydrates" required>
+                </div>
+                <button type="submit">Add Food</button>
+            </form>
+            <div class="food-list" id="foodList">
+                <!-- Dynamic content will be inserted here -->
+            </div>
+        </section>
+    </main>
+    {% else %}
+    {% endif %}
+</body>
+</html>

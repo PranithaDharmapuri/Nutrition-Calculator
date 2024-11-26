@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Nutritional Calculator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background-color: #4caf50;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-bottom: 20px;
+        }
+        main {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .calculator {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .calculator h2 {
+            color: #4caf50;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .form-group input[type="number"] {
+            width: 80px;
+        }
+        button[type="submit"] {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        #results {
+            margin-top: 30px;
+        }
+        #results h2 {
+            color: #4caf50;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+        label {
+            font-size: 1.2em;
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: 'Open Sans', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Recipe Nutritional Calculator</h1>
+    </header>
+    <main>
+        <section class="calculator">
+            <h2>Calculate Nutritional Information</h2>
+            <form id="recipeForm" action="{% url 'udashboard' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="recipeName">Recipe Name:</label>
+                    <select id="receipe" name="receipe">
+                        {% for fooditem in fooditems %}
+                        <option value="{{fooditem.id}}">{{fooditem.Name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+    
+                <div class="form-group">
+                    <label for="servings">Servings (g):</label>
+                    <input type="number" id="servings" name="servings" min="1" value="1" required>
+                </div>
+                <button type="submit">Calculate</button>
+            </form>
+        </section><br>
+        {% if item %}
+        <section class="calculator">
+            <h2>Nutritional Details  - {{item.Name}} kcal</h2>
+            <p><strong>Calories :- </strong>  {{calaries}} grams</p>
+            <p><strong>Proteins :- </strong>{{protien}} grams</p>
+            <p><strong>Fats :-  </strong>{{fat}} grams</p>
+            <p><strong>Carbohydrates :-  </strong>{{carbohydrates}} grams</p>
+        </section>
+        {% else %}
+        {% endif %}
+    </main>
+</body>
+</html>
